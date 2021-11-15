@@ -2,22 +2,46 @@ import { ValidatorFunction } from "./interfaces";
 
 
 export abstract class Validators {
+
     /**
-     * Creates a validator function that validates if the length is atleast at the minimum.
-     * @param min The minimum number of length the test paramater must have.
-     * @returns A function that will validate the length of either an Array or string according to the specified minimum value.  If the paramter is null, it will return false.
+     * Creates a validator function that validates if the number is atleast at minimum.
+     * @param min The minimum number, the test number parameter must have.
+     * @returns A function that will validate the number according to the specified minimum value.
      */
-    static min<T = unknown>(min: number): ValidatorFunction<number | string  | Array<T> > {
+    static minNumber(min: number): ValidatorFunction<number> {
         return (test) => {
-            if(typeof test === "number") {
-                return test >= min;
-            }
-            if (test == null || test.length < min) {
+            return test >= min;
+        };
+    }
+
+    /**
+     * Validates a string if it's atleast a certain amount of character length.
+     * @param min The minimum amount of characters a string must have.
+     * @returns A method that will check if the given string parameter of atleast a minimum length.
+     */
+    static minChar(min: number) : ValidatorFunction<string> {
+        return (test) => {
+            if(test == null || test.length < min) {
                 return false;
             }
             return true;
-        };
+        }
     }
+
+    /**
+     * Validates an array if it's length is atleast the given amount.
+     * @param min The minimum length of the array must have.
+     */
+    static minArrayLength<T>(min: number) : ValidatorFunction<T[]> {
+        return (test) => {
+            if(test == null || test.length < min) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+
 
     /**
      * Creates a validator function that validates if the length is less than the maximum. (Exclusive)
