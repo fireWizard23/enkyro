@@ -58,7 +58,7 @@ describe('Validators.range(5, 12)', () => {
 
 });
 
-describe("Validators.required(1)", () => {
+describe("Validators.notNull", () => {
     const {notNull: required} = Validators;
 
     it("should return true", () => {
