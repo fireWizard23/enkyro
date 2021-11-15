@@ -4,7 +4,7 @@
   "description": "A simple but powerful way to validate request object in express",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts 'test/**/*.ts'"
+    "test": "mocha --check-leaks --require ts-node/register --watch-extensions ts 'test/**/*.spec.ts'"
   },
   "author": "",
   "license": "MIT",
