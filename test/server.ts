@@ -7,12 +7,7 @@ const app = express();
 app.use(express.json());
 
 
-app.post("/", validateRequestBody([
-    {
-        key: "t",
-        validator: Validators.min(5)
-    }
-]))
+
 
 
 
