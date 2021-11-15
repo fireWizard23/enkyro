@@ -71,10 +71,8 @@ export abstract class Validators {
      * Validates a parameter if it's null | undefined.
      * @returns A function that will validate if the given parameter is null | undefined.
      */
-    static required<T>(): ValidatorFunction<T> {
-        return (test) => {
-            return test != null;
-        };
+    static notNull(test: any) {
+        return test != null;
     }
 
 }
