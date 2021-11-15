@@ -43,6 +43,21 @@ describe('Validators.max(2)', () => {
 
 }) ;
 
+describe('Validators.range(5, 12)', () => {
+    const inRange = Validators.range(5, 12);
+
+    it('should return true', () => {
+        expect(inRange(5)).equal(true);
+        expect(inRange([1,2,3,4,5])).equal(true);
+        expect(inRange("1234567")).equal(true);
+    });
+
+    it("should return false", () => {
+        expect(inRange(null as any)).equal(false)
+    });
+
+});
+
 describe("Validators.required(1)", () => {
     const {notNull: required} = Validators;
 
@@ -57,7 +72,8 @@ describe("Validators.required(1)", () => {
 
 }) 
 
-describe('Validators.regex()', () => {
+describe('Validators.regex(/username/)', () => {
+
     const test = Validators.regex(/^[A-Za-z][A-Za-z0-9_]{7,29}$/);
 
     it('should return false', () => {
@@ -65,6 +81,7 @@ describe('Validators.regex()', () => {
         expect(test("")).equal(false, 'it should be false becaues it is test("")');
         expect(test("Richard232!")).equal(false)
     });
+
 
     it("should return true", () => {
         expect(test("Richard232")).equal(true)
