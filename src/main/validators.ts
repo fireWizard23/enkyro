@@ -75,6 +75,23 @@ export abstract class Validators {
     }
 
     /**
+     * Validates an array if it's length is less than the given length.
+     * @param max The maximum length of the array can have (Exclusive)
+     * @returns A function that will check if the given array is less than the maximum length.
+     * * The function will return false if the parameter is null 
+     * 
+     */
+     static maxArrayLength<T>(max: number) : ValidatorFunction<T[]> {
+        return (test) => {
+            if(test == null || test.length >= max) {
+                return false;
+            }
+            return true;
+        }
+    }
+    
+
+    /**
      * Validates a string | unknown[] based on its length.
      * @param min The minimum length
      * @param max The maximum length

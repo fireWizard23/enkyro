@@ -52,7 +52,7 @@ describe('Validators', () => {
     });
 
     describe('MaxFn', () => {
-        describe('maxNumber', () => {
+        describe('maxNumber(10)', () => {
             const max = Validators.maxNumber(10);
             it('should be true when number < 10', () => {
                 expect(max(9)).to.equal(true);
@@ -67,7 +67,7 @@ describe('Validators', () => {
             });
         });
 
-        describe('maxChar', () => {
+        describe('maxChar(10)', () => {
             const max = Validators.maxChar(10);     
             it('should be true when length is < 10', () => {
                 expect(max('')).to.equal(true);
@@ -84,7 +84,21 @@ describe('Validators', () => {
 
         });
 
+        describe('maxArrayLength(10)', () => {
+            const max = Validators.maxArrayLength(10);
+            it('should be true when length is < 10', () => {
+                expect(max([1])).equal(true);
+            });
+            it('should be false when length is >= 10', () => {
+                expect(max([1,2,3,4,5,6,7,8,9,10])).equal(false);
+                expect(max(new Array(10).fill(100))).equal(false);
+            });
+
+        });
+
     });
+
+
 
 
 });
