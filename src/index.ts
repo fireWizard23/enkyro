@@ -1,1 +1,3 @@
-// export * from './main/main';
+export * from './main/interfaces';
+
+export * from './main/validators'

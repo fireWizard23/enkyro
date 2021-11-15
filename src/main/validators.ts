@@ -7,8 +7,11 @@ export abstract class Validators {
      * @param min The minimum number of length the test paramater must have.
      * @returns A function that will validate the length of either an Array or string according to the specified minimum value.  If the paramter is null, it will return false.
      */
-    static min(min: number): ValidatorFunction<string | Array<unknown>> {
+    static min<T = unknown>(min: number): ValidatorFunction<number | string  | Array<T> > {
         return (test) => {
+            if(typeof test === "number") {
+                return test >= min;
+            }
             if (test == null || test.length < min) {
                 return false;
             }
@@ -21,8 +24,12 @@ export abstract class Validators {
      * @param max The minimum number of length the test paramater must have.
      * @returns A function that will validate the length of either an Array or string according to the specified maximum value. If the paramter is null, it will return false.
      */
-    static max(max: number): ValidatorFunction<string | Array<unknown>> {
+    static max<T = unknown>(max: number): ValidatorFunction<number | string | Array<T>> {
         return (test) => {
+            if(typeof test === "number") {
+                return test < max;
+            }
+
             if (test == null || test.length >= max) {
                 return false;
             }
@@ -36,8 +43,11 @@ export abstract class Validators {
      * @param max The maximum length
      * @returns A function that will validate if the length of a string | unknown[] is within the range of min and max (Exclusive). Returns false if the parameter is null.
      */
-    static range(min: number, max: number): ValidatorFunction<string | Array<unknown>> {
+    static range<T = unknown>(min: number, max: number): ValidatorFunction<number | string | Array<T>> {
         return (test) => {
+            if(typeof test === "number") {
+                return test >= min && test < max;
+            }
             if (test == null || test.length < min || test.length >= max) {
                 return false;
             }
