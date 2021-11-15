@@ -50,6 +50,43 @@ describe('Validators', () => {
         });
 
     });
+
+    describe('MaxFn', () => {
+        describe('maxNumber', () => {
+            const max = Validators.maxNumber(10);
+            it('should be true when number < 10', () => {
+                expect(max(9)).to.equal(true);
+                expect(max(-9)).to.equal(true);
+                expect(max(-19)).to.equal(true);
+            });
+            it('should be false when number >= 10', () => {
+                expect(max(19)).to.equal(false);
+                expect(max(219)).to.equal(false);
+                expect(max(10)).to.equal(false);
+
+            });
+        });
+
+        describe('maxChar', () => {
+            const max = Validators.maxChar(10);     
+            it('should be true when length is < 10', () => {
+                expect(max('')).to.equal(true);
+                expect(max('adasd')).to.equal(true);
+                expect(max('123456789')).to.equal(true);
+            });
+
+            it('should be false when length is >= 10', () => {
+                expect(max('1234567890')).to.equal(false);
+                expect(max('09123lkjsadkl')).to.equal(false);
+                expect(max('lkasdnf alsdjflaskd')).to.equal(false);
+            });
+
+
+        });
+
+    });
+
+
 });
 
 // describe('Validators.max(2)', () => {

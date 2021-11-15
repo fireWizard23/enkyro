@@ -17,7 +17,9 @@ export abstract class Validators {
     /**
      * Validates a string if it's atleast a certain amount of character length.
      * @param min The minimum amount of characters a string must have.
-     * @returns A method that will check if the given string parameter of atleast a minimum length.
+     * @returns A function that will check if the given string parameter of atleast a minimum length.
+     * * The function will return false if the parameter is null 
+     * 
      */
     static minChar(min: number) : ValidatorFunction<string> {
         return (test) => {
@@ -31,6 +33,9 @@ export abstract class Validators {
     /**
      * Validates an array if it's length is atleast the given amount.
      * @param min The minimum length of the array must have.
+     * @returns A function that will check if the given array is atleast the minimum length.
+     * * The function will return false if the parameter is null 
+     * 
      */
     static minArrayLength<T>(min: number) : ValidatorFunction<T[]> {
         return (test) => {
@@ -44,21 +49,29 @@ export abstract class Validators {
 
 
     /**
-     * Creates a validator function that validates if the length is less than the maximum. (Exclusive)
-     * @param max The minimum number of length the test paramater must have.
-     * @returns A function that will validate the length of either an Array or string according to the specified maximum value. If the paramter is null, it will return false.
+     * Creates a validator function that validates if the number is less than the maximum. (Exclusive)
+     * @param max The maximum number the test paramater can be.
+     * @returns A function that will validate if the given number is not greater than the 'max' parameter.
      */
-    static max<T = unknown>(max: number): ValidatorFunction<number | string | Array<T>> {
+    static maxNumber(max: number): ValidatorFunction<number> {
         return (test) => {
-            if(typeof test === "number") {
-                return test < max;
-            }
+            return test < max;
+        };
+    }
 
-            if (test == null || test.length >= max) {
+    /**
+     * 
+     * @param max The maximum length a string must have (Exclusive).
+     * @returns A function that will validate if the given string is lower than the parameter. 
+     * * The function will return false if the parameter is null 
+     */
+    static maxChar(max: number) : ValidatorFunction<string>{
+        return (test) => {
+            if(test == null || test.length >= max) {
                 return false;
             }
             return true;
-        };
+        }
     }
 
     /**
