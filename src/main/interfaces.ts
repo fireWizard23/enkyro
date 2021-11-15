@@ -10,7 +10,7 @@ export type CustomResponseFunction = (res: Response) => void;
 /**
  * The shape for custom message and statusCodes for the default responses.
  */
-export interface CustomResponse {
+export interface CustomResponseOption {
     /**
      * The message to respond with.
      */
@@ -20,6 +20,8 @@ export interface CustomResponse {
      */
     statusCode?: number;
 };
+
+export type ValidationableResponse = CustomResponseOption | CustomResponseFunction;
 
 export interface Validationable<T> {
     /**
@@ -35,5 +37,11 @@ export interface Validationable<T> {
     /**
      * The function to call to or message to use to respond to the request if the validation fails.
      */
-    response?: CustomResponse | CustomResponseFunction;
+    response?: ValidationableResponse;
 }
+
+
+export function isCustomResponse(obj : any) : obj is CustomResponseOption {
+    return (<CustomResponseOption> obj) != undefined;
+}
+

@@ -71,7 +71,7 @@ export abstract class Validators {
      * Validates a parameter if it's null | undefined.
      * @returns A function that will validate if the given parameter is null | undefined.
      */
-    static notNull(test: any) {
+    static notNull(test: any): boolean {
         return test != null;
     }
 
