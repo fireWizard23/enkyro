@@ -32,7 +32,7 @@ export interface Validationable<T> {
     /**
      * The function that will be used to validate the property.
      */
-    validator: ValidatorFunction<T>;
+    validator: ValidationableValidator<T>
 
     /**
      * The function to call to or message to use to respond to the request if the validation fails.
