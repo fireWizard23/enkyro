@@ -1,16 +1,16 @@
 import chai,{ expect } from "chai";
-import server from './server'
+import server from './object-literal-server'
 import http from 'chai-http'
 
 chai.use(http);
 
-
-describe('POST /username', () => {
+let usernameRoute = "/username"
+describe(`POST ${usernameRoute}`, () => {
 
 
     it("should be a failed request", () => {
         chai.request(server)
-            .post("/username")
+            .post(usernameRoute)
             .send({
                 username: "Lack"
             })
@@ -23,7 +23,7 @@ describe('POST /username', () => {
 
     it("should return status of 200 ", () => {
         chai.request(server)
-            .post("/username")
+            .post(usernameRoute)
             .send({
                 username: "Richard"
             })
@@ -36,10 +36,11 @@ describe('POST /username', () => {
     })
 });
 
-describe('POST /responsetest', () => {
+const responseTestRoute = "/responsetest";
+describe(`POST ${responseTestRoute}`, () => {
     it("should be always a failed request", () => {
         chai.request(server)
-            .post("/responsetest")
+            .post(responseTestRoute)
             .send({
             })
             .end((err, res) => {
@@ -50,10 +51,11 @@ describe('POST /responsetest', () => {
     })
 });
 
-describe('POST /response-option-test', () => {
+const responseOptionRoute = '/response-option-test';
+describe(`POST ${responseOptionRoute}`, () => {
     it("should be always a failed request", () => {
         chai.request(server)
-            .post("/response-option-test")
+            .post(responseOptionRoute)
             .send({
             })
             .end((err, res) => {
@@ -63,3 +65,21 @@ describe('POST /response-option-test', () => {
             })
     })
 });
+
+
+const userRoute = "/response-user-test";
+describe(`POST ${userRoute}`, () => {
+    it("should be always a failed request", () => {
+        chai.request(server)
+            .post(userRoute)
+            .send({
+            })
+            .end((err, res) => {
+                if(err) throw err;
+                expect(res.status).equal(400, "res.status should be 400")
+                expect(res.text.toLowerCase()).equal("invalid username");
+            })
+    })
+});
+
+
