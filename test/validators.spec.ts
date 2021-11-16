@@ -234,6 +234,66 @@ describe('Validators', () => {
 
     })
 
+    describe("isNumber", () => {
+        const fn = Validators.isNumber;
+
+        it("should be true when 1", () => {
+            expect(fn(1)).equal(true);
+        })
+        describe("should be false when", () => {
+            it("it is string", () => expect(fn("")))
+            itIsArray(fn);
+            itIsNull(fn);
+            itIsObject(fn);
+        })
+
+    });
+
+    
+    describe("isObject", () => {
+        const fn = Validators.isObject;
+
+        it("should be true when it is an object", () => {
+            expect(fn({})).equal(true);
+        })
+        describe("should be false when", () => {
+            it("is a number", () => expect(fn(1)).equal(false));
+            it("is a string", () => expect(fn("alksdf")).equal(false));
+        })
+
+    });
+    
+
+    describe("isBoolean", () => {
+        const fn = Validators.isBoolean;
+
+        it("should be true when it is true", () => {
+            expect(fn(true)).equal(true);
+        })
+        describe("should be false when", () => {
+            it("is a number", () => expect(fn(1)).equal(false));
+            it("is a string", () => expect(fn("alksdf")).equal(false));
+            itIsNull(fn);
+            itIsArray(fn);
+            itIsObject(fn);
+        })
+
+    });
+
+    describe("isArray", () => {
+        const fn = Validators.isArray;
+
+        it("should be true when it is []]", () => {
+            expect(fn([])).equal(true);
+        })
+        describe("should be false when", () => {
+            it("is a number", () => expect(fn(1)).equal(false));
+            it("is a string", () => expect(fn("alksdf")).equal(false));
+            itIsNull(fn);
+            itIsObject(fn);
+        })
+
+    });
 
 });
 
