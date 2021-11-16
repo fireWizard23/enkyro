@@ -7,15 +7,31 @@ const app = express();
 app.use(express.json());
 
 
-app.post("/", validateRequestBody([
+app.post("/username", validateRequestBody([
     {
-        key: "test",
-        validator: Validators.rangeNumber(5, 20)
+        key: "username",
+        validator: [Validators.rangeChar(6, 12)]
     }
 ]), (req,res) => {
-    res.send("Valid")
+    res.json({
+        success: true
+    })
 })
 
+app.post("/responsetest", validateRequestBody([
+    {
+        key: "test",
+        validator: () => false,
+        response: (res) => {
+            res.status(300).json({success: false})
+            
+        }
+    }
+]), (req,res) => {
+    res.json({
+        success: true
+    })
+})
 
 
 

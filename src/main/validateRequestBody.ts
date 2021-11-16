@@ -29,10 +29,10 @@ export function validateRequestBody<T = unknown>(validations: Validationable<T>[
 }
 function sendResponse(res: Response, v: ValidationableResponse) {
 
-    if (!isCustomResponse(v)) {
-        v(res);
-    } else {
+    if (isCustomResponse(v)) {
         res.status(v.statusCode || 300).send(v.message);
+    } else {
+        v(res);
     }
 }
 function runValidation<T>(toCheck: T, validator: ValidationableValidator<T>): boolean {
