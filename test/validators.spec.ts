@@ -295,6 +295,20 @@ describe('Validators', () => {
 
     });
 
+    describe("isArray", () => {
+        const fn = Validators.isString;
+
+        it("should be true when it is []]", () => {
+            expect(fn("")).equal(true);
+        })
+        describe("should be false when", () => {
+            it("is a number", () => expect(fn(1)).equal(false));
+            itIsNull(fn);
+            itIsObject(fn);
+        })
+
+    });
+
 });
 
 

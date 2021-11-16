@@ -201,4 +201,8 @@ export abstract class Validators {
         return Array.isArray(test);
     }
 
+    static isString(test: unknown) : test is string {
+        return typeof test === "string";
+    }
+
 }
