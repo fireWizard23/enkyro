@@ -41,7 +41,7 @@ export interface Validationable<T> {
 }
 
 
-export function isCustomResponse(obj : any) : obj is CustomResponseOption {
-    return (<CustomResponseOption> obj) != undefined;
+export function isCustomResponse(obj : ValidationableResponse) : obj is CustomResponseOption {
+    return (<CustomResponseOption> obj).message != undefined;
 }
 
