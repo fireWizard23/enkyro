@@ -98,17 +98,48 @@ export abstract class Validators {
     
 
     /**
-     * Validates a string | unknown[] based on its length.
-     * @param min The minimum length
-     * @param max The maximum length
-     * @returns A function that will validate if the length of a string | unknown[] is within the range of min and max (Exclusive). Returns false if the parameter is null.
+     * Validates a number if is within the range specified.
+     * @param min The minimum number
+     * @param max The maximum number (Exclusive)
+     * @returns A function that will validate if the number is within the range of min and max
+     * * The function will return false if the parameter is null | undefind or not a Number 
      */
-    static range<T = unknown>(min: number, max: number): ValidatorFunction<number | string | Array<T>> {
+    static rangeNumber(min: number, max: number): ValidatorFunction<number> {
         return (test) => {
-            if(typeof test === "number") {
-                return test >= min && test < max;
+            if (test == null || typeof test != "number" || test < min || test >= max) {
+                return false;
             }
-            if (test == null || test.length < min || test.length >= max) {
+            return true;
+        };
+    }
+
+    
+    /**
+     * Validates a string if its length is within the range specified.
+     * @param min The minimum length
+     * @param max The maximum length (Exclusive)
+     * @returns A function that will validate if the string's length is within the range of min and max
+     * * The function will return false if the parameter is null | undefind or not a String 
+     */
+     static rangeChar(min: number, max: number): ValidatorFunction<string> {
+        return (test) => {
+            if (test == null || typeof test != "string" || test.length < min || test.length >= max) {
+                return false;
+            }
+            return true;
+        };
+    }
+
+    /**
+     * Validates an Array if its length is within the range specified.
+     * @param min The minimum length
+     * @param max The maximum length (Exclusive)
+     * @returns A function that will validate if the Array's length is within the range of min and max
+     * * The function will return false if the parameter is null | undefind or not an Array 
+     */
+     static rangeArrayLength<T>(min: number, max: number): ValidatorFunction<T[]> {
+        return (test) => {
+            if (test == null || !Array.isArray(test) || test.length < min || test.length >= max) {
                 return false;
             }
             return true;

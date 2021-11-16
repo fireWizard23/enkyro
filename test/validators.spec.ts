@@ -16,7 +16,8 @@ describe('Validators', () => {
                     expect(min(4)).to.equal(false, "min(4) === false");
                     expect(min(-124)).to.equal(false, "min(4) === false");
                 })
-                it("null", () => expect(min(null as any)).equal(false));
+                itIsNull(min);
+
                 it("an array", () => {expect(min([] as any)).equal(false)});
 
 
@@ -37,7 +38,7 @@ describe('Validators', () => {
                     expect(min("")).to.equal(false);
                     expect(min("alsk")).to.equal(false);
                 })
-                it("it is null", () => expect(min(null as any)).equal(false));
+                itIsNull(min);
                 it("it is array", () => expect(min([""] as any)).equal(false));
                 it("it is {}", () => expect(min({} as any)).equal(false));
             });
@@ -58,7 +59,7 @@ describe('Validators', () => {
                     expect(min([])).equal(false);
                 })
 
-                it("it is null", () => expect(min(null as any)).equal(false));
+                itIsNull(min);
                 it("it is {}", () => expect(min({} as any)).equal(false))
                 it("it is string", () => expect(min("alksjd" as any)).equal(false))
 
@@ -85,9 +86,9 @@ describe('Validators', () => {
                     expect(max(10)).to.equal(false);
                 })
 
-                it("it is null", () => expect(max(null as any)).equal(false));
-                it("it is []", () => expect(max([] as any)).equal(false));
-                it("it is {}", () => expect(max({} as any)).equal(false));
+                itIsNull(max);
+                itIsObject(max)
+                itIsArray(max)
 
             });
         });
@@ -107,13 +108,11 @@ describe('Validators', () => {
                     expect(max('lkasdnf alsdjflaskd')).to.equal(false);
                 })
                 
-                it("null", () => {
-                    expect(max(null as any)).equal(false);
-                })
+                itIsNull(max);
+                itIsObject(max)
+                itIsArray(max)
                 
-                it("not string", () => {
-                    expect(max([] as any)).equal(false);
-                })
+                
             });
             
         });
@@ -131,8 +130,8 @@ describe('Validators', () => {
                     expect(max([1,2,3,4,5,6,7,8,9,10])).equal(false);
                     expect(max(new Array(10).fill("sladkjf"))).equal(false);
                 })
-                it('it is null', () => expect(max(null as any)).equal(false));
-                it('it is {}', () => expect(max({} as any)).equal(false));
+                itIsNull(max);
+                itIsObject(max)
                 it('it is string', () => expect(max("alksjdfs" as any)).equal(false));
 
 
@@ -142,77 +141,121 @@ describe('Validators', () => {
 
     });
 
+    describe("RangeFn", () => {
+        describe("rangeNumber(5, 20)", () => {
+            const range = Validators.rangeNumber(5, 20);
+            it("should return true when number is between 5-19", () => {
+                expect(range(9)).equal(true);
+                expect(range(19)).equal(true);
+                expect(range(5)).equal(true);
+            });
 
+            describe("should return false when", () => {
+                it("< 5", () => expect(range(3)).equal(false));
+                it("it is -12", () => expect(range(-12)).equal(false));
+                it("it is 102", () => expect(range(102)).equal(false));
+                itIsNull(range);
+                itIsArray(range);
+                itIsObject(range)
+
+            })
+        });
+
+        describe("rangeChar(5, 20)", () => {
+            const range = Validators.rangeChar(5, 20);
+            it("should return true when string length is between 5-19", () => {
+                expect(range("123456789")).equal(true);
+                expect(range("12830812jksad19")).equal(true);
+                expect(range("1234557891234567890")).equal(true);
+            });
+
+            describe("should return false when", () => {
+                it("< 5", () => expect(range("12")).equal(false));
+                it("it is empty", () => expect(range("")).equal(false));
+                it("it is 20 chars", () => expect(range("12345678901234567890")).equal(false));
+                itIsNull(range);
+                itIsObject(range)
+                itIsArray(range);
+
+            })
+        });
+
+
+        describe("rangeArrayLength(5, 20)", () => {
+            const range = Validators.rangeArrayLength(5, 20);
+            it("should return true when Array length is between 5-19", () => {
+                expect(range(new Array(5).fill(5))).equal(true);
+                expect(range([1,2, "1", "3", 1, 32, false])).equal(true);
+                expect(range(new Array(19).fill(true))).equal(true);
+            });
+
+            describe("should return false when", () => {
+                it("length < 5", () => expect(range([1,2])).equal(false));
+                it("it is empty", () => expect(range([])).equal(false));
+                it("it's length is 20", () => expect(range(new Array(20).fill(20))).equal(false));
+                itIsNull(range);
+                itIsObject(range);
+            })
+        });
+
+    })
+
+    describe("NotNullFn", () => {
+        const fn = Validators.notNull;
+        it("should return true when not null", () => {
+            expect(fn([])).equal(true);
+            expect(fn({})).equal(true)
+            expect(fn("")).equal(true)
+        })
+        it("should return false when it is null", () => {
+            itIsNull(fn)
+        })
+    })
+
+    describe("RegexFn", () => {
+        const fn = Validators.regex(/^[A-Za-z][A-Za-z0-9_]{8,29}$/);
+        it("should return true when it is valid", () => {
+            expect(fn("Laasya_Setty"))
+        })
+
+        describe("it should return false when", () => {
+            it("it is empty", () => {
+                expect(fn("")).equal(false);
+            })
+            it("it is __Rich___", () => {
+                expect(fn("__Rich__")).equal(false);
+            })
+            const char20 = "Laasya_SettyLaasya_SettyLaasya_Setty"
+            it(`it is ${char20}`, () => expect(fn(char20)).equal(false))
+            itIsNull(fn);
+            itIsArray(fn);
+            itIsObject(fn);
+        })
+
+    })
 
 
 });
 
-// describe('Validators.max(2)', () => {
-//     const maxOf2 = Validators.max(2);
-    
-
-//     it("should return true", () => {
-//         expect(maxOf2(1)).to.equal(true);
-//         expect(maxOf2("1")).to.equal(true);
-//         expect(maxOf2([1])).to.equal(true);
-//     })
 
 
-//     it("should return false", () => {
-
-//         expect(maxOf2(null as any)).to.equal(false);
-//         expect(maxOf2(2)).to.equal(false);
-//         expect(maxOf2("21")).to.equal(false);
-//         expect(maxOf2([1, 2, 3])).to.equal(false);
-
-//     });
 
 
-// }) ;
+function itIsNull(cb: (t: any) => boolean, desc?: string) : void{
+    it(desc || "is null", () => {
+        expect(cb(null)).equal(false);
+    })
+}
 
-// describe('Validators.range(5, 12)', () => {
-//     const inRange = Validators.range(5, 12);
+function itIsObject(cb: (t: any) => boolean, desc?: string) : void {
+    it(desc || "is {}", () => {
+        expect(cb({})).equal(false);
+    })
+}
 
-//     it('should return true', () => {
-//         expect(inRange(5)).equal(true);
-//         expect(inRange([1,2,3,4,5])).equal(true);
-//         expect(inRange("1234567")).equal(true);
-//     });
-
-//     it("should return false", () => {
-//         expect(inRange(null as any)).equal(false)
-//     });
-
-// });
-
-// describe("Validators.notNull", () => {
-//     const {notNull: required} = Validators;
-
-//     it("should return true", () => {
-//         expect(required({})).to.equal(true);
-//     });
-
-//     it("should return false", () => {
-//         expect(required(null)).to.equal(false);
-//     })
-
-
-// }) 
-
-// describe('Validators.regex(/username/)', () => {
-
-//     const test = Validators.regex(/^[A-Za-z][A-Za-z0-9_]{7,29}$/);
-
-//     it('should return false', () => {
-//         expect(test(null as any)).equal(false);
-//         expect(test("")).equal(false, 'it should be false becaues it is test("")');
-//         expect(test("Richard232!")).equal(false)
-//     });
-
-
-//     it("should return true", () => {
-//         expect(test("Richard232")).equal(true)
-//     })
-// });
-
+function itIsArray(cb: (t: any) => boolean, desc?: string) : void {
+    it(desc || "is []", () => {
+        expect(cb([])).equal(false);
+    })
+}
 
