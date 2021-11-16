@@ -7,7 +7,14 @@ const app = express();
 app.use(express.json());
 
 
-
+app.post("/", validateRequestBody([
+    {
+        key: "test",
+        validator: Validators.rangeNumber(5, 20)
+    }
+]), (req,res) => {
+    res.send("Valid")
+})
 
 
 
