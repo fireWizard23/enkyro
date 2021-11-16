@@ -14,10 +14,11 @@ export function validateRequestBody<T = unknown>(validations: Validationable<T>[
                 shouldReturn = true;
                 if (i.response == null) {
                     res.status(400).send(`${i.key} is either null or invalid input.`);
-                    continue;
+                    break;
                 }
                 
                 sendResponse(res, i.response);
+                break;
             }
         }
         if(shouldReturn) {
