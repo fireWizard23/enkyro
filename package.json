@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A simple but powerful way to validate request object in express",
   "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "types": "lib/",
   "scripts": {
     "test": "mocha --check-leaks --require ts-node/register test/**/*.spec.ts",
     "test:watch": "mocha --require ts-node/register --watch --watch-files src/**/*.ts, test/**/*.spec.ts",
