@@ -11,7 +11,8 @@
     "test": "mocha --check-leaks --require ts-node/register test/**/*.spec.ts",
     "test:watch": "mocha --require ts-node/register --watch --watch-files src/**/*.ts, test/**/*.spec.ts",
     "test-single": "mocha --require ts-node/register",
-    "test-server": "mocha --require ts-node/register test/validateRequestBody.spec.ts",
+    "test-server": "mocha --require ts-node/register test/server/**/*.spec.ts",
+    "test-server:w": "mocha --require ts-node/register  --watch --watch-files test/server/**/*.ts, test/server/**/*.spec.ts",
     "build": "tsc"
   },
   "author": "",
