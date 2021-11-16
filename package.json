@@ -1,6 +1,6 @@
 {
-  "name": "valid-req",
-  "version": "1.0.0",
+  "name": "enkyro",
+  "version": "0.1.0",
   "description": "A simple but powerful way to validate request object in express",
   "main": "lib/index.js",
   "files": [
