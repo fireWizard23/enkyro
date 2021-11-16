@@ -23,7 +23,7 @@ app.post("/responsetest", validateRequestBody([
         key: "test",
         validator: () => false,
         response: (res) => {
-            res.status(300).json({success: false})
+            res.status(400).json({success: false})
             
         }
     }
@@ -33,7 +33,20 @@ app.post("/responsetest", validateRequestBody([
     })
 })
 
-
+app.post("/response-option-test", validateRequestBody([
+    {
+        key: "test",
+        validator: () => false,
+        response: {
+            message: "Invalid",
+            statusCode: 400
+        }
+    }
+]), (req,res) => {
+    res.json({
+        success: true
+    })
+})
 
 export default app;
 // app.listen(3000,() => console.log("APp listening to PORT 3000"));

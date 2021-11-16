@@ -16,7 +16,7 @@ describe('POST /username', () => {
             })
             .end((err, res) => {
                 if(err) throw err;
-                expect(res.status).equal(300)
+                expect(res.status).equal(400)
                 expect(res.text.indexOf("username") > -1).equal(true)
             })
     })
@@ -44,10 +44,22 @@ describe('POST /responsetest', () => {
             })
             .end((err, res) => {
                 if(err) throw err;
-                expect(res.status).equal(300, "res.status should be 300")
+                expect(res.status).equal(400, "res.status should be 400")
                 expect(res.body.success).equal(false, "res.body.success should be false")
             })
     })
 });
 
-
+describe('POST /response-option-test', () => {
+    it("should be always a failed request", () => {
+        chai.request(server)
+            .post("/response-option-test")
+            .send({
+            })
+            .end((err, res) => {
+                if(err) throw err;
+                expect(res.status).equal(400, "res.status should be 400")
+                expect(res.text.toLowerCase()).equal("invalid");
+            })
+    })
+});
