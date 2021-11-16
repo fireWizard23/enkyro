@@ -13,12 +13,10 @@ export function validateRequestBody<T = unknown>(validations: Validationable<T>[
             if (!runValidation(propertyValue, i.validator)) {
                 shouldReturn = true;
                 if (i.response == null) {
-                    console.log("I.response isnull!");
-                    console.log("SENDING DEFAULT!");
-                    res.status(300).send("Invalid");
+                    res.status(300).send(`${i.key} is either null or invalid input.`);
                     continue;
                 }
-                console.log("SENDING CUSTOM RESPONSE!")
+                
                 sendResponse(res, i.response);
             }
         }
