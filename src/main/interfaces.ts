@@ -30,7 +30,7 @@ export interface Validationable<T> {
     key: string;
 
     /**
-     * The function that will be used to validate the property.
+     * The function/s that will be used to validate the property.
      */
     validator: ValidationableValidator<T>
 
