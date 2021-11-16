@@ -166,4 +166,39 @@ export abstract class Validators {
         return test != null;
     }
 
+
+    /**
+     * Validates the property if it is a number
+     * @returns True if the test parameter is of type number
+     */
+    static isNumber(test: unknown) : test is number{
+        return typeof test === "number";
+    }
+
+   
+
+    /**
+     * Validates the property if it is an object
+     * @returns True if the test parameter is of type object
+     */
+     static isObject(test: unknown): test is object {
+        return typeof test === "object";
+    }
+
+    /**
+     * Validates the property if it is an boolean
+     * @returns True if the test parameter is of type boolean
+     */
+     static isBoolean(test: unknown): test is boolean {
+        return typeof test === "boolean";
+    }
+    
+    /**
+     * Validates the property if it is an array
+     * @returns True if the test parameter is of type array
+     */
+     static isArray(test: unknown): test is Array<any> {
+        return Array.isArray(test);
+    }
+
 }
