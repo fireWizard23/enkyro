@@ -11,9 +11,15 @@ describe('Validators', () => {
                 expect(min(125)).to.equal(true, "min(5) === true");
             });
         
-            it("should return false when < 4", () => {
-                expect(min(4)).to.equal(false, "min(4) === false");
-                expect(min(-124)).to.equal(false, "min(4) === false");
+            describe("should return false when:", () => {
+                it("< 5", () => {
+                    expect(min(4)).to.equal(false, "min(4) === false");
+                    expect(min(-124)).to.equal(false, "min(4) === false");
+                })
+                it("null", () => expect(min(null as any)).equal(false));
+                it("an array", () => {expect(min([] as any)).equal(false)});
+
+
             })
         
         });
@@ -26,25 +32,36 @@ describe('Validators', () => {
                 expect(min("12342121lsakdfasldflaskd5")).to.equal(true);
             });
 
-            it('should be false when length < 5', () => {
-                expect(min("1")).to.equal(false);
-                expect(min("121")).to.equal(false);
-                expect(min("alsk")).to.equal(false);
+            describe('should return false when', () => {
+                it("length < 5", () => {
+                    expect(min("")).to.equal(false);
+                    expect(min("alsk")).to.equal(false);
+                })
+                it("it is null", () => expect(min(null as any)).equal(false));
+                it("it is array", () => expect(min([""] as any)).equal(false));
+                it("it is {}", () => expect(min({} as any)).equal(false));
             });
 
         });
 
         describe('minArrayLength(5)', () => {
             const min = Validators.minArrayLength(5);
+
             it('should be true when the length is 5', () => {
                 expect(min([1,2,3,4,5])).equal(true);
                 expect(min([1,2, "1", false, 1])).equal(true);
             });
 
-            it('should be false when the length is < 5', () => {
-                expect(min([1,2,5])).equal(false);
-                expect(min([1,"1", false])).equal(false);
-                expect(min([])).equal(false);
+            describe('should be false when', () => {
+                it("the length is < 5", () => {
+                    expect(min([1,2,5])).equal(false);
+                    expect(min([])).equal(false);
+                })
+
+                it("it is null", () => expect(min(null as any)).equal(false));
+                it("it is {}", () => expect(min({} as any)).equal(false))
+                it("it is string", () => expect(min("alksjd" as any)).equal(false))
+
             });
 
         });
@@ -54,15 +71,23 @@ describe('Validators', () => {
     describe('MaxFn', () => {
         describe('maxNumber(10)', () => {
             const max = Validators.maxNumber(10);
+
             it('should be true when number < 10', () => {
                 expect(max(9)).to.equal(true);
                 expect(max(-9)).to.equal(true);
                 expect(max(-19)).to.equal(true);
             });
-            it('should be false when number >= 10', () => {
-                expect(max(19)).to.equal(false);
-                expect(max(219)).to.equal(false);
-                expect(max(10)).to.equal(false);
+
+            describe('should be false when', () => {
+                it("number >= 10", () => {
+                    expect(max(19)).to.equal(false);
+                    expect(max(219)).to.equal(false);
+                    expect(max(10)).to.equal(false);
+                })
+
+                it("it is null", () => expect(max(null as any)).equal(false));
+                it("it is []", () => expect(max([] as any)).equal(false));
+                it("it is {}", () => expect(max({} as any)).equal(false));
 
             });
         });
@@ -75,23 +100,42 @@ describe('Validators', () => {
                 expect(max('123456789')).to.equal(true);
             });
 
-            it('should be false when length is >= 10', () => {
-                expect(max('1234567890')).to.equal(false);
-                expect(max('09123lkjsadkl')).to.equal(false);
-                expect(max('lkasdnf alsdjflaskd')).to.equal(false);
+            describe('should be false when:', () => {
+                it("length is >= 10", () => {
+                    expect(max('1234567890')).to.equal(false);
+                    expect(max('09123lkjsadkl')).to.equal(false);
+                    expect(max('lkasdnf alsdjflaskd')).to.equal(false);
+                })
+                
+                it("null", () => {
+                    expect(max(null as any)).equal(false);
+                })
+                
+                it("not string", () => {
+                    expect(max([] as any)).equal(false);
+                })
             });
-
-
+            
         });
 
         describe('maxArrayLength(10)', () => {
             const max = Validators.maxArrayLength(10);
+
             it('should be true when length is < 10', () => {
                 expect(max([1])).equal(true);
+                expect(max([1,2,3,3,4,31,32])).equal(true);
             });
-            it('should be false when length is >= 10', () => {
-                expect(max([1,2,3,4,5,6,7,8,9,10])).equal(false);
-                expect(max(new Array(10).fill(100))).equal(false);
+
+            describe('should be false when ', () => {
+                it("length is >= 10", () => {
+                    expect(max([1,2,3,4,5,6,7,8,9,10])).equal(false);
+                    expect(max(new Array(10).fill("sladkjf"))).equal(false);
+                })
+                it('it is null', () => expect(max(null as any)).equal(false));
+                it('it is {}', () => expect(max({} as any)).equal(false));
+                it('it is string', () => expect(max("alksjdfs" as any)).equal(false));
+
+
             });
 
         });
