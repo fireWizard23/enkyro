@@ -84,7 +84,7 @@ export abstract class Validators {
      * Validates an array if it's length is less than the given length.
      * @param max The maximum length of the array can have (Exclusive)
      * @returns A function that will check if the given array is less than the maximum length.
-     * * The function will return false if the parameter is null | undefind or not an Array
+     * * The function will return false if the parameter is null | undefined or not an Array
      * 
      */
      static  maxArrayLength<T>(max: number) : ValidatorFunction<T[]> {
@@ -102,7 +102,7 @@ export abstract class Validators {
      * @param min The minimum number
      * @param max The maximum number (Exclusive)
      * @returns A function that will validate if the number is within the range of min and max
-     * * The function will return false if the parameter is null | undefind or not a Number 
+     * * The function will return false if the parameter is null | undefined or not a Number 
      */
     static rangeNumber(min: number, max: number): ValidatorFunction<number> {
         return (test) => {
@@ -119,7 +119,7 @@ export abstract class Validators {
      * @param min The minimum length
      * @param max The maximum length (Exclusive)
      * @returns A function that will validate if the string's length is within the range of min and max
-     * * The function will return false if the parameter is null | undefind or not a String 
+     * * The function will return false if the parameter is null | undefined or not a String 
      */
      static rangeChar(min: number, max: number): ValidatorFunction<string> {
         return (test) => {
@@ -135,7 +135,7 @@ export abstract class Validators {
      * @param min The minimum length
      * @param max The maximum length (Exclusive)
      * @returns A function that will validate if the Array's length is within the range of min and max
-     * * The function will return false if the parameter is null | undefind or not an Array 
+     * * The function will return false if the parameter is null | undefined or not an Array 
      */
      static rangeArrayLength<T>(min: number, max: number): ValidatorFunction<T[]> {
         return (test) => {
@@ -160,7 +160,7 @@ export abstract class Validators {
 
     /**
      * Validates a parameter if it's null | undefined.
-     * @returns A function that will validate if the given parameter is null | undefined.
+     * @returns A function that will validate if the given parameter is null | undefined (Uses '!=' instead of '!=='). 
      */
     static notNull(test: any): boolean {
         return test != null;
