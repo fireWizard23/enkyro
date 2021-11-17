@@ -20,7 +20,6 @@ export abstract class Validators {
      * Validates a string if it's atleast a certain amount of character length.
      * @param min The minimum amount of characters a string must have.
      * @returns A function that will check if the given string parameter of atleast a minimum length.
-     * * The function will return false if the parameter is null 
      * * The function will return false if the parameter is null | undefined or not string
      * 
      */
