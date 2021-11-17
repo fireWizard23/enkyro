@@ -5,7 +5,7 @@ export type ValidatorFunction<T> = (test: T) => boolean;
 
 export type ValidationableValidator<T> = ValidatorFunction<T> | ValidatorFunction<T>[];
 
-export type CustomResponseFunction = (res: Response) => void;
+export type CustomResponseFunction = (res: Response) => Response;
 
 /**
  * The shape for custom message and statusCodes for the default responses.
