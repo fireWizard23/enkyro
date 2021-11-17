@@ -24,7 +24,7 @@ app.post("/responsetest", validateRequestBody([
         key: "test",
         validator: () => false,
         response: (res) => {
-            res.status(400).json({ success: false });
+            return res.status(400).json({ success: false });
 
         }
     }
@@ -67,7 +67,7 @@ app.post("/response-user-test", validateRequestBody([
             console.log("RESPONSE OF PASSWORD!")
             console.log("")
             console.log("")
-            res.json({
+            return res.json({
                 message: "Invalid Password",
                 success: false
             });
