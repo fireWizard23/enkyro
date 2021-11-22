@@ -1,16 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import { Validationable, ValidationableResponse, ValidationableValidator, isCustomResponse } from "./interfaces";
+import { Validationable } from "./interfaces";
 import { runValidation, sendResponse } from "./validateUtils";
 
 
-export function validateRequestBody<T = unknown>(validations: Validationable<T>[]) {
+export function validateRequestHeaders(validations: Validationable<string | string[] | undefined>[]) {
     return (req: Request, res: Response, _next: NextFunction) => {
-        if (req.body == null) {
-            throw new Error("Request body is null | undefined. Have you tried using express.json()?");
-        }
+
         let shouldReturn = false;
         for (const i of validations) {
-            const propertyValue = req.body[i.key];
+            const propertyValue = req.headers[i.key];
             if (!runValidation(propertyValue, i.validator)) {
                 shouldReturn = true;
                 if (i.response == null) {

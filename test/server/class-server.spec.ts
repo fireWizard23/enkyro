@@ -51,3 +51,37 @@ describe("MinCharValidation",() => {
 
 })
 
+
+describe("MIN HEADERS", () => {
+
+    describe('Good REquest', () => {
+        it('should be a good request', (done) => {
+            chai.request(server)
+                .get("/minheaders")
+                .auth("1234567890`124123", {type: "bearer"})
+                .end((err, res) => {
+                    expect(res.status).equal(200);
+                    expect(res.text).equal("VALID");
+                    done();
+                })
+        });
+    });
+
+    describe('Bad REquest', () => {
+        it('should be a bad request', (done) => {
+            chai.request(server)
+                .get("/minheaders")
+                // .auth("3", {type: "bearer"})
+                .end((err, res) => {
+                    expect(res.status).equal(400);
+                    // expect(res.text).equal("VALID");
+                    done();
+                })
+        });
+    });
+
+
+});
+
+
+

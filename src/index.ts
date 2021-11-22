@@ -6,3 +6,4 @@ export * from './main/validateRequestBody'
 
 export * from './main/validator-classes';
 
+export * from './main/validateRequestHeaders'
